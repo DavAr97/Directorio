@@ -5,7 +5,7 @@
                     alt="Contacts Logo"
                     height="25"
                     class="d-inline-block align-text-top mx-2">
-            CONTACTOS 
+            DIRECTORIO DE CONTACTOS 
         </a> 
 
         <div class="d-flex">

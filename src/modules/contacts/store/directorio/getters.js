@@ -4,11 +4,18 @@
     //return state
 // }
 
-export const getContactByName = (/* state */) => {
+export const getContactByName = (state )=> (term = '') =>  {
 
+    if (term.length ===0) return state.entries
+    return state.entries.filter(entry => entry.nombre.toLowerCase().includes(term.toLocaleLowerCase()))
+    
 }
 
 
-export const getContactById = (/* state */) => {
+export const getContactById = (state) => (id = '') => {
+        const entry = state.entries.find(entry => entry.id === id)
 
+        if (!entry) return
+
+        return {...entry} //TO DO
 }

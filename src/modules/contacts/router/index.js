@@ -13,11 +13,18 @@ export default {
         },
 
         {   
-            path: ':id/edit',
+            path: 'edit/:id',
             name: 'editContact',
         
-            component: () => import(/* webpackChunkName: "agregar" */ '@/modules/contacts/views/EditarContactView.vue')
+            component: () => import(/* webpackChunkName: "agregar" */ '@/modules/contacts/views/EditarContactView.vue'),
+            
+            props: (route) => {
+                return {
+                    id: route.params.id 
+                }
+            }
         },
+
     ]
 
 }   

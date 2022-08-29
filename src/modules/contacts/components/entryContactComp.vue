@@ -5,6 +5,7 @@
               type="text"
               class="form-control"
               placeholder="Buscar contacto" 
+              v-model="term"
             />
       </div>
   </div>
@@ -21,7 +22,21 @@
             </tr>
         </thead>
         <tbody>
-            <ContactoCuerpo/>
+            <tr v-for="entry in contactByName" :key="entry.id" :entry="entry">
+                        
+               <td>{{entry.id}}</td>
+               <td>{{entry.nombre}}</td>
+               <td>{{entry.correo}}</td>
+               <td>{{entry.telefono}}</td>
+               <td><button @click="$router.push({name: 'editContact', params:{id:entry.id }})" class="btn btn-info btn-block">
+                    <i class="fa fa-user-edit"></i>
+                   </button>
+               </td>
+               <td><button @click="DeleteContact(contact.id, $event)" class="btn btn-danger btn-block">
+                    <i class="fa fa-trash-alt"></i>
+                   </button>
+               </td>  
+            </tr>             
         </tbody>
       </table>
   </div>
@@ -29,11 +44,32 @@
 </template>
 
 <script>
-import { defineAsyncComponent } from 'vue'
+
+import { mapGetters } from 'vuex';
+
 export default {
 
-  components: {
-    ContactoCuerpo: defineAsyncComponent(() => import('./NewContactComp'))
+  props:{
+    entry: {
+        type: Object,
+        requiered: true
+    }
+  },
+
+  computed: {
+
+    ...mapGetters('directorio',['getContactByName']),
+
+    contactByName(){
+      return this.getContactByName(this.term)
+    }
+
+  },
+
+  data(){
+    return{
+      term: ''
+    }
   }
   
 }
