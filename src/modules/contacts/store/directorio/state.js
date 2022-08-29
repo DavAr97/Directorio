@@ -2,8 +2,9 @@
 
  export default () => ({
     isLoading: true,
-    entries: [
-         {
+    entries: [ ]   
+ })
+/*          {
             id: '1',
             nombre: 'David',
             correo: 'dave@gmail.com',
@@ -20,6 +21,4 @@
             nombre: 'Arce',
             correo: 'arce@gmail.com',
             telefono: '5558775058',
-         }, 
-    ]   
- })
+         },  */

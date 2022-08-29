@@ -8,10 +8,22 @@
             DIRECTORIO DE CONTACTOS 
         </a> 
 
+        <div class="mt-1 d-flex flex-column">
+            <button class="btn btn-danger mx-3"
+                @click="$router.push({ name: 'addNewContact', params: { id: 'new' } })">
+                    <i class="fa fa-plus-circle"></i>
+                Nuevo Contacto
+            </button>
+        </div>
+
+
         <div class="d-flex">
             <button class="btn btn-outline-light mx-2">
                 <i class="fas fa-sign-out-alt"></i>
             </button> 
-        </div>      
+        </div>
+
+
+
     </nav>
 </template>
