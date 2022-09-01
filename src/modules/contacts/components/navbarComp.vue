@@ -19,7 +19,7 @@
 
         <div class="d-flex">
             <button class="btn btn-outline-light mx-2"
-            @click="$router.push({name: 'login'})">
+            @click="onLogout">
                 <i class="fas fa-sign-out-alt"></i>
             </button> 
         </div>
@@ -28,3 +28,24 @@
 
     </nav>
 </template>
+
+<script>
+import { useRouter } from 'vue-router'
+import useAuth from '@/modules/auth/composables/useAuth'
+
+export default {
+    setup(){
+
+        const router = useRouter()
+        const { logout } = useAuth()
+
+
+        return {
+            onLogout: () => {
+                router.push({ name: 'login' })
+                logout()
+            }
+        }
+    }
+}
+</script>

@@ -1,6 +1,8 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import LoginView from '../views/LoginView.vue'
+import authRouter from '../modules/auth/router'
 import contactsRouter from '../modules/contacts/router'
+import isAuthenticatedGuard from '../modules/auth/router/auth-guard'
 
 const routes = [
   {
@@ -8,18 +10,18 @@ const routes = [
     name: 'login',
     component: LoginView
   },
+
+  
   {
-    path: '/directorio',
-    name: 'directorio',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "directorio" */ '../views/DirectorioView.vue')
+    path: '/auth',
+    ...authRouter     
   },
+
+
   {
     path: '/contacts',
-    ...contactsRouter
-     
+    beforeEnter: [isAuthenticatedGuard],
+    ...contactsRouter     
   }
 ]
 

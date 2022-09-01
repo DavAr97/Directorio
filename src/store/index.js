@@ -1,11 +1,13 @@
 
 import { createStore } from 'vuex'
+import auth from '../modules/auth/store'
 import directorio from '../modules/contacts/store/directorio'
 
 const store = createStore({    
     modules:{
+        auth,
         directorio
-
+        
     }
 
 })

@@ -27,3 +27,8 @@ export const deleteContact = async (state,id ) => {
 
     state.entries = state.entries.filter(e=>e.id != id )
 }
+
+export const clearContact = async (state ) => {
+
+    state.entries = []
+}
