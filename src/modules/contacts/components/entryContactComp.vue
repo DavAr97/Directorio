@@ -1,12 +1,10 @@
 <template>
-
-
   <div class="entry-list-container">
       <div class="px-1 pt-2">
           <input 
               type="text"
               class="form-control"
-              placeholder="Buscar contacto" 
+              placeholder="Buscar contacto por su nombre" 
               v-model="term"
             />
       </div>
@@ -16,17 +14,17 @@
       <table class="table table">
         <thead>
             <tr>
-              <th>#</th>
+              <!-- <th>#</th> -->
               <th>Nombre</th>
               <th>Email</th>
-              <th>telefono</th>
+              <th>Telefono</th>
               <th colspan="1">Opciones</th>
             </tr>
         </thead>
         <tbody>
             <tr v-for="entry in contactByName" :key="entry.id" :entry="entry">
                         
-               <td>{{entry.id}}</td>
+               <!-- <td>{{entry.id}}</td> -->
                <td>{{entry.nombre}}</td>
                <td>{{entry.correo}}</td>
                <td>{{entry.telefono}}</td>
@@ -34,7 +32,9 @@
                     <i class="fa fa-user-edit"></i>
                    </button>
                </td>
-               <td><button @click="DeleteContact(contact.id, $event)" class="btn btn-danger btn-block">
+               <td><button @click="ondeleteContact(entry.id, $event)" class="btn btn-danger btn-block">
+                
+                
                     <i class="fa fa-trash-alt"></i>
                    </button>
                </td>  
@@ -47,32 +47,52 @@
 
 <script>
 
-import { mapGetters } from 'vuex';
+
+import { mapGetters,mapActions } from 'vuex';
+
 
 export default {
 
-  props:{
-    entry: {
-        type: Object,
-        requiered: true
-    }
-  },
+ 
+    data() {
+      return{
+         term: '',
+
+      }
+
+    }, 
 
   computed: {
 
-    ...mapGetters('directorio',['getContactByName']),
+    ...mapGetters('directorio',['getContactByName','getContactById']),
 
     contactByName(){
       return this.getContactByName(this.term)
+    
+    },
+
+ },
+
+
+  methods:{
+
+    ...mapActions('directorio',['deleteContact']),
+
+    async ondeleteContact(id, event){
+
+      const confirmacion = confirm('¿Quieres eliminar este contacto?')
+      console.log('eliminando',id)
+      if(confirmacion){
+      await this.deleteContact(id)
+      this.$router.push({name:'contacts'})      
+      }else {
+        event.preventDefault()
+      }
+    
     }
+    
 
   },
-
-  data(){
-    return{
-      term: ''
-    }
-  }
   
 }
 </script>

@@ -6,7 +6,7 @@ export default {
     children: [
 
         {   
-            path: 'new',
+            path: ':id',
             name: 'addNewContact',
         
             component: () => import(/* webpackChunkName: "agregar" */ '@/modules/contacts/views/CrearContactView.vue')

@@ -18,6 +18,12 @@ export const updateContact = (state,entry) => {
 }
 
 
-export const addContact = (/* state */) => {
+export const createContact = (state,entry) => {
+   
+    state.entries = [entry, ...state.entries]
+}
 
+export const deleteContact = async (state,id ) => {
+
+    state.entries = state.entries.filter(e=>e.id != id )
 }

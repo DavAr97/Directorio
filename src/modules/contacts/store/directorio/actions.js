@@ -35,6 +35,23 @@ export const updateContact = async ( { commit },entry) => {
     commit('updateContact',{...entry})
 }
 
-export const createContact = async (/* comit */) => {
+export const createContact = async ({ commit },entry) => {
+
+    const {nombre, correo, telefono} = entry
+    console.log()
+    const dataToSave = {nombre, correo, telefono}
+    const {data} = await directorioApi.post(`contacto.json`, dataToSave)
+
+    dataToSave.id = data.name
+
+    commit('createContact',dataToSave)
+    return data.name 
+}
+
+export const deleteContact = async ( { commit },id ) => {
+
+    await directorioApi.delete(`/contacto/${id}.json`)
+    commit('deleteContact',id)
+    return id
 
 }

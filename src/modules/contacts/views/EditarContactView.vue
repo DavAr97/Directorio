@@ -3,8 +3,8 @@
   <div  v-if="entry"
     class="container">
     <div class="row">
-        <div class="col-md-5">
-            <h2>Editar</h2>
+        <div class="col-md-6">
+            <h2>Editar Contacto</h2>
               <div class="card card-body">
                 <form>
                   <div class="form-group">
@@ -12,22 +12,24 @@
 
                   </div>
                   <div class="form-group">
-                    <input v-model="entry.correo" type="email" class="form-control" placeholder="Correo" minlength="7" maxlength="50" required>              
+                    <input  v-model="entry.correo" type="email" class="form-control" placeholder="Correo" minlength="7" maxlength="50" required>              
                   </div>
                   <div class="form-group">
                     <input v-model="entry.telefono" type="tel" class="form-control" placeholder="Telefono" minlength="10" maxlength="10" required>              
                   </div>
                   <div class="form-group">
-                    <input @click="guardarEdit"  type="button" value="Guardar Edicion" class="btn btn-info btn-block text-dark" >              
+                    <input @click="guardarEdit"  type="button" value="Guardar Edicion" class="btn btn-success btn-block text-dark" >              
                   </div>  
                   <div class="form-group">
-                    <input @click="$router.push({name: 'contacts'})" type="reset" value="Listo" class="btn btn-success btn-block text-dark" >              
+                    <input @click="$router.push({name: 'contacts'})" type="reset" value="Cancelar" class="btn btn-danger btn-block text-dark" >              
                   </div>          
                 </form>
               </div> 
         </div>
     </div>
   </div>
+
+  <entryContactComp></entryContactComp>
 </template>
 
 <script>
@@ -68,17 +70,22 @@ export default {
       ...mapActions('directorio',['updateContact']),
 
       loadEntry(){
+   
         const entry = this.getContactById(this.id)
-        if ( !entry ) return this.$router.push({name:'contacts'})
+        if ( !entry ) return this.$router.push({name:'contacts'}) 
 
         this.entry = entry
+        
       },
 
-      async guardarEdit(){
-        console.log('Guardando edicion')
+      async guardarEdit(){        
 
-        this.updateContact(this.entry)
+       await this.updateContact(this.entry)      
+       this.$router.push({name:'contacts'})
+       
       }
+
+
 
     },
 

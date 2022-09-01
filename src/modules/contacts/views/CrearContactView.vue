@@ -1,24 +1,24 @@
 <template>
-
-<div class="container">
+<div  
+    class="container">
     <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-6">
 
             <h2>Crear Contacto</h2>
               <div class="card card-body">
                 <form>
                   <div class="form-group">
-                    <input  type="text" class="form-control" placeholder="Nombre" minlength="1" maxlength="50" required>
+                    <input v-model="entry.nombre" type="text" class="form-control" placeholder="Nombre" minlength="1" maxlength="50" required>
 
                   </div>
                   <div class="form-group">
-                    <input  type="email" class="form-control" placeholder="Correo" minlength="7" maxlength="50" required>              
+                    <input v-model="entry.correo" type="email" class="form-control" placeholder="Correo" minlength="7" maxlength="50" required>              
                   </div>
                   <div class="form-group">
-                    <input  type="tel" class="form-control" placeholder="Telefono" minlength="10" maxlength="10" required>              
+                    <input v-model="entry.telefono" type="tel" class="form-control" placeholder="Telefono" minlength="10" maxlength="10" required>              
                   </div>
                   <div class="form-group">
-                    <input @click="guardarContact" type="button" value="Guardar Contacto" class="btn btn-success btn-block text-dark" >              
+                    <input @click="guardarContact()" type="button" value="Guardar Contacto" class="btn btn-success btn-block text-dark" >              
                   </div>  
                   <div class="form-group">
                     <input @click="$router.push({name: 'contacts'})" type="reset" value="Cancelar" class="btn btn-danger btn-block text-dark" >              
@@ -33,69 +33,55 @@
 </template>
 
 <script>
-/* import { mapGetters,mapActions} from 'vuex' */ //se asocia a computed
+import { mapActions} from 'vuex'  //se asocia a computed
 
 export default {
-/* 
-  props:{
-        id:{
-          type: String,
-          requited: true
-        }
-    },
+
 
     components:{
 
-    },
-
+    }, 
+ 
     data() {
       return{
          entry: null
       }
 
-    },
+    }, 
 
 
-    computed: {
-
-      ...mapGetters('directorio',['getContactById'])
-
-    },
 
     methods:{
+      ...mapActions('directorio',['createContact']),
 
-      ...mapActions('directorio',['updateContact']),
+     
+      newEntry(){
 
-      loadEntry(){
-        const entry = this.getContactById(this.id)
-        if ( !entry ) return this.$router.push({name:'contacts'})
+        let entry
+        
+        entry= {
+            nombre:'',
+            correo:'',
+            telefono:'',
+          }
 
         this.entry = entry
       },
 
-      async guardarEdit(){
-        console.log('Guardando edicion')
+      async guardarContact(){     
 
-        this.updateContact(this.entry)
+        await this.createContact(this.entry)        
+        this.$router.push({name:'contacts'})
+        
       }
 
     },
 
+    
     created (){
-        this.loadEntry()
-    },
+        this.newEntry()
+    }, 
 
-    watch: {
-
-      id(){
-        this.loadEntry()
-      }
-
-    }, */
 
 }
 </script>
-
-<style>
-
-</style>
